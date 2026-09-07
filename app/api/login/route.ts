@@ -16,14 +16,14 @@ export async function POST(request: Request) {
     if (!expectedCaptcha) {
       return NextResponse.json({ 
         ok: 'NO', 
-        msg: 'CAPTCHA expirado. Por favor, genere uno nuevo.' 
+        msg: 'CAPTCHA expirado.' 
       }, { status: 400 });
     }
 
     if (!validateCaptcha(captcha, expectedCaptcha)) {
       return NextResponse.json({ 
         ok: 'NO', 
-        msg: 'CAPTCHA incorrecto. Intente de nuevo.' 
+        msg: 'CAPTCHA incorrecto.' 
       }, { status: 400 });
     }
 

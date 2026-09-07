@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 interface Props {
-  onLogin: (user: string, pass: string, captcha: string) => Promise<void>;
+  onLogin: (user: string, pass: string, captcha: string) => Promise<string | null>;
   loading: boolean;
 }
 
@@ -12,35 +12,40 @@ export default function LoginForm({ onLogin, loading }: Props) {
   const [pass, setPass] = useState('');
   const [captcha, setCaptcha] = useState('');
   const [showPass, setShowPass] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [captchaUrl, setCaptchaUrl] = useState('/api/captcha'); 
 
   const refreshCaptcha = () => {
     setCaptchaUrl(`/api/captcha?${Date.now()}`);
     setCaptcha('');
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError(null);
 
     if (!user) {
       setError('Ingrese su nombre de usuario y/o cuenta UNAM');
-      setTimeout(() => setError(''), 6000);
+      setTimeout(() => setError(null), 6000);
       return;
     }
     if (!pass) {
       setError('Ingrese su contraseña.');
-      setTimeout(() => setError(''), 6000);
+      setTimeout(() => setError(null), 6000);
       return;
     }
     if (!captcha) {
       setError('Favor de verificar el captcha.');
-      setTimeout(() => setError(''), 6000);
+      setTimeout(() => setError(null), 6000);
       return;
     }
-
-    await onLogin(user.toUpperCase(), pass, captcha.toUpperCase());
+    const errorMsg = await onLogin(user.toUpperCase(), pass, captcha.toUpperCase());
+    
+    if (errorMsg) {
+      setError(errorMsg);
+      setTimeout(() => setError(null), 10000);
+    }
   };
 
   return (
@@ -50,10 +55,15 @@ export default function LoginForm({ onLogin, loading }: Props) {
         <a href="https://www.integra.unam.mx/archivos/Manuales/InicioSesion.pdf" target="_blank" className="d-block mt-2">
           Manual de Usuario
         </a>
+
+        {error && (
+          <p className="mt-2" style={{ color: '#721c24', border: '1px solid #f5c6cb', padding: '0.75rem 1.25rem', marginBottom: '1rem', borderRadius: '0.25rem', backgroundColor: '#f8d7da' }}>
+            {error}
+          </p>
+        )}
       </div>
 
       <div className="card-body">
-        {error && <div className="alert alert-danger text-center">{error}</div>}
         
         {loading && (
           <div className="text-center mb-3">

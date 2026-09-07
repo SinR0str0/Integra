@@ -19,7 +19,7 @@ export default function Home() {
     setShowPrivacy(true);
   };
 
-  const handleLogin = async (user: string, pass: string, captcha: string) => {
+  const handleLogin = async (user: string, pass: string, captcha: string): Promise<string | null> => {
     setLoading(true);
     try {
       const res = await fetch('/api/login', {
@@ -31,12 +31,14 @@ export default function Home() {
 
       if (data.ok === 'SI') {
         window.location.href = `/${data.ruta}`;
+        return null; // Éxito, no hay error
       } else {
-        alert(data.msg || 'Error en las credenciales o captcha');
+        // Devuelve el mensaje de la API (ej: "Usuario o contraseña incorrectos")
+        return data.msg || 'Error en las credenciales o captcha';
       }
     } catch (err) {
       console.error(err);
-      alert('Error de conexión con el servidor');
+      return 'Error de conexión con el servidor';
     } finally {
       setLoading(false);
     }
