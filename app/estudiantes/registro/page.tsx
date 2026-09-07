@@ -371,7 +371,7 @@ export default function RegistroPage() {
             {/* Botón Inicio */}
             <div className="text-center mt-3">
               <Link href="/" className="d-block">
-                <p className="font-weight-bold" style={{ color: 'var(--primary-color)' }}>Inicio</p>
+                <p className="font-weight-bold">Inicio</p>
               </Link>
             </div>
 

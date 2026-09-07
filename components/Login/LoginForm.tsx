@@ -170,7 +170,7 @@ export default function LoginForm({ onLogin, loading }: Props) {
 
         <div className="text-center mt-3">
           <a className="d-block small mb-2" href="/estudiantes/registro">Registrarse</a>
-          <a className="d-block small" href="/configuracion/RecuperaPassword/recupera.php">Recuperar contraseña</a>
+          <a className="d-block small" href="/configuracion/RecuperaPassword">Recuperar contraseña</a>
         </div>
 
         <div className="browser-icons-container">

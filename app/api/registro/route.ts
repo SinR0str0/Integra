@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
     // Validar CAPTCHA
     const cookieStore = await cookies();
-const expectedCaptcha = cookieStore.get('captcha_text')?.value;
+    const expectedCaptcha = cookieStore.get('captcha_text')?.value;
 
     if (!expectedCaptcha) {
       return NextResponse.json({
@@ -59,12 +59,30 @@ const expectedCaptcha = cookieStore.get('captcha_text')?.value;
 
     // Aquí va tu lógica de registro real en la base de datos
     // Ejemplo: await db.usuario.create({ cuenta, correo, contrasenaHash, curp })
-
-    return NextResponse.json({
-      ok: 'SI',
-      msg: 'Registro exitoso',
+    const response = await fetch(process.env.GOOGLE_SHEETS_API_URL!, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'registro',
+        cuenta_unam: cuenta,
+        correo: correo,
+        contrasena: contrasena,
+        curp: curp
+      })
     });
 
+    const data = await response.json();
+
+    if (data.success) {
+      return NextResponse.json({ ok: 'SI', msg: 'Registro exitoso' });
+    } else {
+      return NextResponse.json({ 
+        ok: 'NO', 
+        msg: data.message || 'Error en el registro' 
+      }, { status: 400 });
+    }
   } catch (error) {
     console.error('Error en registro:', error);
     return NextResponse.json({
