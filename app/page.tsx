@@ -11,6 +11,19 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (showAviso || showPrivacy) {
+      document.body.style.overflow = 'hidden'; // Bloquea el scroll del body
+    } else {
+      document.body.style.overflow = 'auto';   // Lo restaura al cerrar
+    }
+    
+    // Limpieza por si el componente se desmonta
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showAviso, showPrivacy]);
+
+  useEffect(() => {
     setShowAviso(true);
   }, []);
 
