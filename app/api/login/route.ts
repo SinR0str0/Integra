@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       console.error('Falta la variable de entorno GOOGLE_SHEETS_API_URL');
       return NextResponse.json({ 
         ok: 'NO', 
-        msg: 'Error de configuración del servidor' 
+        msg: apiUrl + 'Error de configuración del servidor' 
       }, { status: 500 });
     }
 
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     console.error('❌ Error en login:', error);
     return NextResponse.json({ 
       ok: 'NO', 
-      msg: 'Error interno del servidor. Intente de nuevo más tarde.' 
+      msg: error + 'Error interno del servidor. Intente de nuevo más tarde.' 
     }, { status: 500 });
   }
 }
