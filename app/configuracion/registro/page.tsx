@@ -134,7 +134,7 @@ export default function RegistroPage() {
       <div className="main-container">
         <div className="card card-register">
           {/* Encabezado */}
-          <div className="text-center p-3">
+          <div className="text-center p-3"> 
             <img src="/images/encabezado-consultas.jpg" alt="UNAM-DGOAE-INTEGRA" className="img-fluid" />
             <a href="https://www.integra.unam.mx/archivos/Manuales/Estudiantes_Registro.pdf" target="_blank" className="d-block mt-2">
               Manual de Usuario

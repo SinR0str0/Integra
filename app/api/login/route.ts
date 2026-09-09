@@ -67,12 +67,41 @@ export async function POST(request: Request) {
     };
     const data = await response.json();
     if (data.success) {
-      return NextResponse.json({ 
+      const cookieStore = await cookies();
+      const response = NextResponse.json({ 
         ok: 'SI', 
-        ruta: 'dashboard', // O la ruta que maneje tu app
+        ruta: 'estudiantes',
         user: data.user,
         token: data.token
       });
+
+      // ✅ AQUÍ SE CREAN Y ASIGNAN LAS COOKIES DE SESIÓN
+      response.cookies.set('auth_token', data.token, {
+        httpOnly: true, // No accesible desde JavaScript del cliente (seguridad)
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24, // 1 día (o lo que decidas)
+        path: '/',
+      });
+
+      response.cookies.set('user_data', JSON.stringify(data.user), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24,
+        path: '/',
+      });
+
+      // Inicializar la última actividad
+      response.cookies.set('last_activity', Date.now().toString(), {
+        httpOnly: false, // Necesaria en el cliente para el contador de inactividad
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 600, // 10 minutos
+        path: '/',
+      });
+
+      return response;
     } else {
       return NextResponse.json({ 
         ok: 'NO', 
