@@ -1,0 +1,4 @@
+.tooltip-custom { position: relative; cursor: pointer; }
+.tooltip-custom::before { content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 12px; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1000; pointer-events: none; }
+.tooltip-custom::after { content: ''; position: absolute; bottom: calc(100% + 3px); left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #000; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1000; pointer-events: none; }
+.tooltip-custom:hover::before, .tooltip-custom:hover::after { opacity: 1; visibility: visible; }

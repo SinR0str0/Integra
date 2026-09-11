@@ -1,0 +1,104 @@
+/* El modal ocupa toda la pantalla y es el ÚNICO que hace scroll cuando está abierto */
+.modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1050 !important;
+  display: none;
+  width: 100% !important;
+  height: 100vh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important; /* 👈 El modal es el que scrollea */
+  outline: 0 !important;
+  -webkit-overflow-scrolling: touch;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+  display: block !important;
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+.modal-dialog {
+  position: relative !important;
+  width: auto !important;
+  margin: 1.75rem auto !important;
+  pointer-events: none !important;
+  z-index: 1051 !important;
+}
+
+.modal-dialog-centered {
+  display: flex !important;
+  align-items: center !important;
+  min-height: calc(100% - 3.5rem) !important;
+}
+
+.modal-dialog-scrollable .modal-content {
+  max-height: none !important;
+}
+
+.modal-content {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  pointer-events: auto !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  border-radius: 0.3rem !important;
+  outline: 0 !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.modal-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  flex-shrink: 0 !important;
+}
+
+.modal-body {
+  position: relative !important;
+  flex: 1 1 auto !important;
+  padding: 1.5rem !important;
+  padding-bottom: 2rem !important;
+  overflow: visible !important;
+}
+
+.modal-body p {
+  margin-bottom: 1rem !important;
+  line-height: 1.6 !important;
+  text-align: justify;
+}
+
+.modal-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  padding: 1rem !important;
+  border-top: 1px solid #dee2e6 !important;
+  flex-shrink: 0 !important;
+}
+
+.modal-vertical .modal-dialog {
+  max-width: 500px !important;
+}
+
+@media (max-width: 576px) {
+  .card-login { overflow-y: visible; }
+  .modal-dialog,
+  .modal-vertical .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+  .main-container { padding: 3rem 1rem; }
+}

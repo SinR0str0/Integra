@@ -11,7 +11,6 @@ export default function AvisoModal({ show, onClose, onContinue }: Props) {
 
   return (
     <div className={`modal fade show modal-vertical ${show ? 'show' : ''}`} style={{ display: show ? 'block' : 'none' }} aria-modal="true">
-      <div className="modal-backdrop fade show"></div>
       <div className="modal-dialog modal-dialog-scrollable">
         <div className="modal-content">
           <div className="modal-header justify-content-center">

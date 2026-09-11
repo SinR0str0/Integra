@@ -11,20 +11,28 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (showAviso || showPrivacy) {
-      document.body.style.overflow = 'hidden'; // Bloquea el scroll del body
-    } else {
-      document.body.style.overflow = 'auto';   // Lo restaura al cerrar
-    }
-    
-    // Limpieza por si el componente se desmonta
+    const hasOpenModal = showAviso || showPrivacy;
+    document.body.classList.toggle('modal-open', hasOpenModal);
+
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove('modal-open');
     };
   }, [showAviso, showPrivacy]);
 
   useEffect(() => {
     setShowAviso(true);
+  }, []);
+
+  useEffect(() => {
+    const closeAllModals = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShowAviso(false);
+        setShowPrivacy(false);
+      }
+    };
+
+    document.addEventListener('keydown', closeAllModals);
+    return () => document.removeEventListener('keydown', closeAllModals);
   }, []);
 
   const handleAvisoContinue = () => {

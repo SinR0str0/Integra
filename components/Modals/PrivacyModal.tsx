@@ -15,7 +15,6 @@ export default function PrivacyModal({ show, onClose }: Props) {
       aria-modal="true"
       role="dialog"
     >
-      <div className="modal-backdrop fade show"></div>
       <div className="modal-dialog modal-dialog-scrollable">
         <div className="modal-content">
           {/* Modal Header */}
@@ -29,7 +28,7 @@ export default function PrivacyModal({ show, onClose }: Props) {
           
           {/* Modal Body */}
           <div className="modal-body">
-            <p style={{textAlign: 'center'}}>
+            <p style={{ textAlign: 'center'}}>
               <b>Aviso de Privacidad Simplificado</b>
             </p>
             
@@ -56,7 +55,7 @@ export default function PrivacyModal({ show, onClose }: Props) {
           </div>
           
           {/* Modal Footer */}
-          <div className="modal-footer justify-content-center">
+          <div className="modal-footer">
             <button 
               type="button" 
               className="btn btn-primary"

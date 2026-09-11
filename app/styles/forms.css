@@ -1,0 +1,14 @@
+.form-control-sm { font-size: 0.875rem; line-height: 1.5; border-radius: 0.2rem; }
+.form-row { display: flex; flex-wrap: wrap; margin-right: -5px; margin-left: -5px; }
+.form-row > [class*="col-"] { padding-right: 5px; padding-left: 5px; }
+.col-md-6 { flex: 0 0 50%; max-width: 50%; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.form-control { display: block; width: 100%; padding: 0.5rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+.form-control:focus { border-color: #80bdff; outline: 0; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+.input-group { display: flex; width: 100%; }
+.input-group .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.input-group-append { display: flex; }
+.input-group-text { display: flex; align-items: center; justify-content: center; padding: 0.5rem 0.75rem; font-size: 1rem; color: #495057; background-color: #e9ecef; border: 1px solid #ced4da; border-left: none; border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem; }
+.link-green-bg { background-color: #28a745; color: white !important; padding: 2px 8px; border-radius: 4px; text-decoration: none; font-weight: normal; }
+.link-green-bg:hover { background-color: #218838; color: white !important; text-decoration: none; }
