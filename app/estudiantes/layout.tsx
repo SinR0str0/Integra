@@ -3,7 +3,7 @@
 import { useEffect, useState, ReactNode } from 'react';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, notFound  } from 'next/navigation';
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const { user, logout, checkEncuestaStatus } = useAuth();
