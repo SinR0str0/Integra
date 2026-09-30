@@ -16,16 +16,13 @@ export default function CatchAllPage() {
     localStorage.setItem('integra_error_count', (currentCount + 1).toString());
   }, []);
 
-  // Evita errores de hidratación
   if (!isMounted) {
     return <div className="p-5 text-center">Cargando...</div>;
   }
 
-  // --- LÓGICA DEL EASTER EGG ---
-
   if (attemptCount <= 2) {
     return (
-      <div className="text-center p-5">
+      <div className="easter-egg-container">
         <i className="fa fa-exclamation-circle fa-3x text-warning mb-3"></i>
         <h3 className="mb-3">Enlace no disponible</h3>
         <p className="lead">
@@ -40,7 +37,7 @@ export default function CatchAllPage() {
 
   if (attemptCount === 3) {
     return (
-      <div className="text-center p-5">
+      <div className="easter-egg-container">
         <div className="spongebob-time-card">Unos momentos después...</div>
         <h4 className="mt-4" style={{ fontFamily: 'Comic Sans MS, sans-serif' }}>
           🧽 Te dije que no había nada ahí.
@@ -51,7 +48,7 @@ export default function CatchAllPage() {
 
   if (attemptCount === 4) {
     return (
-      <div className="text-center p-5">
+      <div className="easter-egg-container">
         <div className="spongebob-time-card">Unos momentos después...</div>
         <h4 className="mt-4" style={{ fontFamily: 'Comic Sans MS, sans-serif' }}>
           🧽 ¿Sigues haciendo clic? Te lo advertí.
@@ -62,7 +59,7 @@ export default function CatchAllPage() {
 
   if (attemptCount === 5) {
     return (
-      <div className="text-center p-5">
+      <div className="easter-egg-container">
         <div className="spongebob-time-card">Unos momentos después...</div>
         <h4 className="mt-4" style={{ fontFamily: 'Comic Sans MS, sans-serif' }}>
           🧽 En serio, no hay nada aquí. Por favor, vete.
@@ -71,16 +68,23 @@ export default function CatchAllPage() {
     );
   }
 
-  // Intento 6 o más: ¡La Mosca!
+  // Intento 6 o más: La Mosca (con imagen real)
   return (
-    <div className="fly-container">
-      <p className="fly-text">
-        El programador se cansó de advertirte y ahora verás una mosca volar.
-      </p>
-      <div className="the-fly">🪰</div>
-      <Link href="/estudiantes/" className="rescue-btn">
-        <i className="fa fa-home"></i> Volver al Inicio (y liberar a la mosca)
-      </Link>
+    <div className="easter-egg-container">
+      <div className="fly-container">
+        <p className="fly-text">
+          El programador se cansó de advertirte y ahora verás una mosca volar.
+        </p>
+        {/* 👈 IMAGEN REAL DE UNA MOSCA (Puedes cambiar este src por '/images/fly.gif') */}
+        <img 
+          src="/images/fly.gif" 
+          alt="Mosca volando" 
+          className="the-fly-img" 
+        />
+        <Link href="/estudiantes/" className="rescue-btn">
+          <i className="fa fa-home"></i> Volver al Inicio
+        </Link>
+      </div>
     </div>
   );
 }

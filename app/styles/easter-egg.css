@@ -1,4 +1,7 @@
-/* Tarjeta estilo "Unos momentos después" */
+/* =========================================
+   EASTER EGG: NOT FOUND STYLES
+   ========================================= */
+
 .spongebob-time-card {
   background-color: #f9e79f;
   border: 4px solid #000;
@@ -12,25 +15,30 @@
   box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
   max-width: 400px;
   margin: 2rem auto;
-  position: relative;
-}
-
-.spongebob-time-card::before {
-  content: "🕒";
-  font-size: 2rem;
   display: block;
-  margin-bottom: 0.5rem;
 }
 
-/* Contenedor de la mosca */
+.easter-egg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  z-index: 1; /* 👈 Asegurar que esté por debajo del menú */
+}
+
 .fly-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
   background-color: rgba(255, 255, 255, 0.95);
-  z-index: 9999;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,49 +50,49 @@
   font-family: 'Comic Sans MS', sans-serif;
   font-size: 1.5rem;
   color: #333;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
-  z-index: 10000;
+  z-index: 10;
+  padding: 0 1rem;
 }
 
-/* La mosca */
-.the-fly {
+.the-fly-img {
   position: absolute;
-  font-size: 3rem;
-  animation: flyAround 8s infinite linear;
-  cursor: none; /* Oculta el cursor para mayor inmersión */
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  animation: flyAround 6s infinite linear;
   user-select: none;
+  z-index: 5;
 }
 
-/* Animación caótica de la mosca */
-@keyframes flyAround {
-  0% { top: 10%; left: 10%; transform: rotate(0deg) scale(1); }
-  10% { top: 80%; left: 20%; transform: rotate(45deg) scale(1.2); }
-  20% { top: 30%; left: 80%; transform: rotate(-30deg) scale(0.8); }
-  30% { top: 70%; left: 70%; transform: rotate(90deg) scale(1.1); }
-  40% { top: 20%; left: 40%; transform: rotate(-60deg) scale(0.9); }
-  50% { top: 90%; left: 90%; transform: rotate(180deg) scale(1.3); }
-  60% { top: 50%; left: 10%; transform: rotate(120deg) scale(1); }
-  70% { top: 10%; left: 60%; transform: rotate(-90deg) scale(0.7); }
-  80% { top: 60%; left: 30%; transform: rotate(270deg) scale(1.2); }
-  90% { top: 40%; left: 90%; transform: rotate(45deg) scale(0.8); }
-  100% { top: 10%; left: 10%; transform: rotate(0deg) scale(1); }
-}
-
-/* Botón de rescate (opcional, por si se desesperan) */
 .rescue-btn {
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding: 0.75rem 1.5rem;
   background-color: #1C3D6C;
   color: white;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  z-index: 10001;
   text-decoration: none;
   font-size: 1rem;
+  z-index: 10;
+  display: inline-block;
 }
+
 .rescue-btn:hover {
   background-color: #A48329;
   color: white;
+  text-decoration: none;
+}
+
+@keyframes flyAround {
+  0% { top: 10%; left: 10%; transform: rotate(0deg) scale(1); }
+  15% { top: 80%; left: 20%; transform: rotate(45deg) scale(1.2); }
+  30% { top: 30%; left: 80%; transform: rotate(-30deg) scale(0.8); }
+  45% { top: 70%; left: 70%; transform: rotate(90deg) scale(1.1); }
+  60% { top: 20%; left: 40%; transform: rotate(-60deg) scale(0.9); }
+  75% { top: 90%; left: 90%; transform: rotate(180deg) scale(1.3); }
+  90% { top: 50%; left: 10%; transform: rotate(120deg) scale(1); }
+  100% { top: 10%; left: 10%; transform: rotate(0deg) scale(1); }
 }
