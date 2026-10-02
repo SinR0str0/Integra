@@ -1,32 +1,139 @@
+/* ============================================
+   LAYOUT DE LOGIN / REGISTRO
+   Solo afecta a páginas con clase .background
+   ============================================ */
+
 .background {
   background-image: url('/images/UNAM.jpg');
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   background-size: cover;
   background-color: #fEfEfE;
-  min-height: 100vh;
+  
+  min-width: 100dvh;
   display: flex;
   flex-direction: column;
 }
 
+/* Solo aplicar fixed en desktop con mouse (iOS no lo soporta) */
+@media (min-width: 992px) and (hover: hover) {
+  .background {
+    background-attachment: fixed;
+  }
+}
+
 .main-container {
-  padding: 6rem 1rem;
+  padding: 6rem 1.5rem;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
 }
 
-.card {
+/* ✅ Cards SOLO dentro de .background (no rompe Bootstrap en dashboard) */
+.background .card {
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.card-login { max-width: 400px; }
-.card-body { padding: 1.5rem; }
-.card-register { max-width: 650px; }
+
+.background .card-body {
+  padding: 1.75rem;
+  flex: 1;
+}
+
+.background .card-login {
+  max-width: 420px;
+  width: 100%;
+}
+
+.background .card-register {
+  max-width: 650px;
+  width: 100%;
+}
+
+/* ============================================
+   BREAKPOINTS RESPONSIVOS
+   ============================================ */
+
+/* Tablets (≤ 992px) */
+@media (max-width: 992px) {
+  .main-container {
+    padding: 5rem 1.25rem;
+  }
+  .background .card-login {
+    max-width: 450px;
+  }
+  .background .card-register {
+    max-width: 90%;
+  }
+}
+
+/* Tablets pequeñas (≤ 768px) */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 4.5rem 1rem;
+    align-items: stretch;
+  }
+  .background .card-login,
+  .background .card-register {
+    max-width: 100%;
+  }
+  .background .card-body {
+    padding: 1.5rem;
+  }
+}
+
+/* Móviles (≤ 576px) */
+@media (max-width: 576px) {
+  .main-container {
+    padding: 3.5rem 0.75rem;
+  }
+  .background .card {
+    border-radius: 0.4rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  .background .card-body {
+    padding: 1.25rem;
+  }
+}
+
+/* Móviles muy pequeños (≤ 380px) */
+@media (max-width: 380px) {
+  .main-container {
+    padding: 3rem 0.5rem;
+  }
+  .background .card-body {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================
+   LANDSCAPE EN MÓVILES
+   ============================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .main-container {
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+  .background {
+    min-height: auto;
+  }
+}
+
+/* ============================================
+   ACCESIBILIDAD
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
