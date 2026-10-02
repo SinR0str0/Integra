@@ -3,16 +3,19 @@
 import { useState, useMemo } from 'react';
 import SelectCascada from './SelectCascada';
 import { datosAcademicos, NIVELES_INICIALES, Opcion } from '@/data/datosAcademicos';
+import { evaluar, filtrarIncompatibles, Perfil } from '@/utils/motor';
+import ResultadosBecas from '@/components/Solicitudes/ResultadosBecas';
 
 export default function FormularioSolicitud() {
   const [nivel, setNivel] = useState('');
   const [plantel, setPlantel] = useState('');
   const [carrera, setCarrera] = useState('');
 
-  const [mostrarOK, setMostrarOK] = useState(false);
+  const [vista, setVista] = useState<'formulario' | 'resultados'>('formulario');
+  const [resultados, setResultados] = useState<any[] | null>(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Obtener opciones en cascada (Solo 2 niveles de profundidad)
   const opcionesPlantel = useMemo<Opcion[]>(() => {
     if (!nivel) return [];
     const n = datosAcademicos[nivel];
@@ -25,55 +28,80 @@ export default function FormularioSolicitud() {
     return p?.hijos ? Object.values(p.hijos) : [];
   }, [nivel, plantel]);
 
-  // Handlers con reset en cascada
-  const handleNivelChange = (v: string) => {
-    setNivel(v); setPlantel(''); setCarrera('');
-    setMostrarOK(false); setError('');
-  };
+  const handleNivelChange = (v: string) => { setNivel(v); setPlantel(''); setCarrera(''); setVista('formulario'); setError(''); };
+  const handlePlantelChange = (v: string) => { setPlantel(v); setCarrera(''); setVista('formulario'); setError(''); };
+  const handleCarreraChange = (v: string) => { setCarrera(v); setVista('formulario'); setError(''); };
 
-  const handlePlantelChange = (v: string) => {
-    setPlantel(v); setCarrera('');
-    setMostrarOK(false); setError('');
-  };
-
-  const handleCarreraChange = (v: string) => {
-    setCarrera(v);
-    setMostrarOK(false); setError('');
-  };
-
-  const validar = (e: React.FormEvent) => {
+  const validar = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nivel || !plantel || !carrera) {
       setError('Por favor completa todos los campos antes de validar.');
-      setMostrarOK(false);
       return;
     }
+    
     setError('');
-    setMostrarOK(true);
+    setLoading(true);
+
+    try {
+      const resPerfil = await fetch('/api/perfil');
+      const dataPerfil = await resPerfil.json();
+
+      if (dataPerfil.ok !== 'SI' || !dataPerfil.data.existe) {
+        throw new Error('No tienes datos en la encuesta. Completa tu <a href="/estudiantes/actualizar-datos" class="alert-link">Encuesta de Datos</a> primero.');
+      }
+
+      const p = dataPerfil.data.datos;
+
+      if (!p.promedio_actual || !p.semestre_actual) {
+        throw new Error('Tu encuesta no tiene promedio o semestre. Actualiza tu <a href="/estudiantes/actualizar-datos" class="alert-link">Encuesta de Datos</a>.');
+      }
+
+      const resConv = await fetch('/api/convocatorias');
+      const dataConv = await resConv.json();
+
+      if (dataConv.ok !== 'SI') {
+        throw new Error('No se pudieron cargar las convocatorias.');
+      }
+
+      // ✅ Se agregaron tiene_discapacidad y es_pueblo_marginal al perfil
+      const perfil: Perfil = {
+        promedio: Number(p.promedio_actual),
+        semestre: Number(p.semestre_actual),
+        genero: (p.genero as any) || undefined,
+        escuela: 'UNAM',
+        institucionPublica: true,
+        carrera: carrera, // La carrera capturada en el formulario
+        ingresoMensual: Number(p.ingresos_mensuales_totales) || undefined,
+        zona: p.estado_residencia || undefined,
+        es_pueblo_marginal: (p.es_pueblo_marginal as any) || undefined,
+        tiene_discapacidad: (p.tiene_discapacidad as any) || undefined,
+        salarioMinimo: 9582.47,
+        hoy: new Date()
+      };
+
+      const resultadoEvaluacion = evaluar(dataConv.data, perfil);
+      
+      // ✅ Aplicamos el filtro de incompatibilidades
+      const resultadoFiltrado = filtrarIncompatibles(resultadoEvaluacion);
+      
+      setResultados(resultadoFiltrado);
+      setVista('resultados');
+
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (mostrarOK) {
-    return (
-      <div className="alert alert-success text-center animate-fadeIn" role="alert">
-        <h4 className="alert-heading mb-3">OK</h4>
-        <p className="mb-3">Tu información académica ha sido validada correctamente.</p>
-        <hr />
-        <div className="text-left" style={{ maxWidth: '400px', margin: '0 auto' }}>
-          <p className="mb-1"><strong>Nivel:</strong> {nivel}</p>
-          <p className="mb-1"><strong>Plantel:</strong> {opcionesPlantel.find(p => p.id === plantel)?.nombre}</p>
-          <p className="mb-1"><strong>Carrera:</strong> {opcionesCarrera.find(c => c.id === carrera)?.nombre}</p>
-        </div>
-        <button 
-          className="btn btn-sm btn-outline-success mt-4"
-          onClick={() => {
-            setNivel(''); setPlantel(''); setCarrera('');
-            setMostrarOK(false);
-          }}
-        >
-          Realizar otra validación
-        </button>
-      </div>
-    );
+  const handleVolver = () => {
+    setVista('formulario');
+    setResultados(null);
+    setError('');
+  };
+
+  if (vista === 'resultados' && resultados) {
+    return <ResultadosBecas resultados={resultados} onVolver={handleVolver} />;
   }
 
   return (
@@ -98,15 +126,13 @@ export default function FormularioSolicitud() {
       )}
 
       {error && (
-        <div className="alert alert-danger text-center text-sm animate-fadeIn mt-3">
-          {error}
-        </div>
+        <div className="alert alert-danger text-center text-sm animate-fadeIn mt-3" dangerouslySetInnerHTML={{ __html: error }} />
       )}
 
       {carrera && (
         <div className="animate-fadeIn">
-          <button type="submit" className="btn-unam">
-            Validar Información
+          <button type="submit" className="btn-unam" disabled={loading}>
+            {loading ? <><i className="fa fa-spinner fa-spin mr-1"></i> Evaluando...</> : 'Validar Información'}
           </button>
         </div>
       )}

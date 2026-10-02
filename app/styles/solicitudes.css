@@ -1,7 +1,9 @@
 /* styles/solicitudes.css */
 .solicitudes-container {
-  margin: 2rem auto; /* Centrado horizontal y margen superior */
-  max-width: 50%;    /* Ancho máximo del 50% */
+  margin-top: 1.5rem;       /* Borde leve superior */
+  margin-left: 1.5rem;      /* Borde leve izquierdo (alineado con el menú) */
+  margin-right: 1.5rem;
+  max-width: 95%;           /* Expandido para que quepan 3 o 4 convocatorias por bloque */
 }
 
 .solicitudes-form-group {
@@ -10,20 +12,20 @@
 
 .solicitudes-label {
   display: block;
-  font-weight: normal; /* Sin negritas */
+  font-weight: normal;
   margin-bottom: 0.25rem;
   font-size: 0.9rem;
   color: #333;
 }
 
 .btn-unam {
-  background-color: #003366 !important; /* Azul UNAM */
+  background-color: #003366 !important;
   color: white !important;
   border: none;
-  font-size: 0.8rem; /* Pequeño */
+  font-size: 0.8rem;
   padding: 0.4rem 1rem;
   display: block;
-  margin: 1.5rem auto 0 auto; /* Centrado */
+  margin: 1.5rem auto 0 auto;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 600;
@@ -33,6 +35,11 @@
 .btn-unam:hover {
   background-color: #002244 !important;
   color: white !important;
+}
+
+.btn-unam:disabled {
+  background-color: #6c757d !important;
+  cursor: not-allowed;
 }
 
 .animate-fadeIn {

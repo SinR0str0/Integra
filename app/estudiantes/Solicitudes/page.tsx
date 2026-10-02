@@ -9,25 +9,24 @@ export default function SolicitudesPage() {
     <>
       <ResetErrorCounter />
       <div className="solicitudes-container">
-        <h1 className="page-header text-center">
+        <h1 className="page-header">
           Solicitudes
-          <br />
-          <small>Ingrese los siguientes datos para validar su información académica.</small>
         </h1>
+          <p>Ingrese los siguientes datos para validar su información académica.</p>
         
-        <div className="mb-3 text-center">
+        
+        <div className="mb-3">
           <Link 
             href="https://www.integra.unam.mx/archivos/Manuales/Estudiantes_Solicitud.pdf" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn btn-sm btn-info"
           >
             Manual de Usuario
           </Link>
         </div>
 
         <div className="card mb-4">
-          <div className="card-header text-center">
+          <div className="card-header">
             Datos académicos
           </div>
           <div className="card-body">
