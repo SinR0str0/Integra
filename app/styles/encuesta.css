@@ -1,0 +1,261 @@
+/* styles/encuesta.css */
+.encuesta-page {
+  --azul-unam: #003366;
+  --dorado: #A48329;
+  --dorado-claro: #C9A84A;
+  --fondo: #f3f5f9;
+  --texto: #222;
+  --texto-suave: #555;
+  --borde: #ccc;
+  
+  font-family: Arial, sans-serif;
+  color: var(--texto);
+  padding: 0 16px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Encabezado consistente con Solicitudes */
+.encuesta-page .page-header {
+  border-bottom: 2px solid var(--dorado);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: var(--azul-unam);
+}
+
+.encuesta-page .page-header small {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+/* Banner superior tipo "header" del HTML original, pero con estilo Integra */
+.encuesta-page .encuesta-banner {
+  background: linear-gradient(to right, var(--azul-unam), #004080);
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 6px;
+  border-left: 5px solid var(--dorado);
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.encuesta-page .encuesta-banner h2 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  color: #fff;
+  border: none;
+  padding: 0;
+}
+
+.encuesta-page .encuesta-banner p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  color: var(--dorado-claro);
+}
+
+/* Secciones como cards de Integra */
+.encuesta-page section {
+  background: #fff;
+  border-radius: 6px;
+  padding: 0;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #e5e5e5;
+}
+
+/* Card-header dorado/azul estilo Integra */
+.encuesta-page section > h2 {
+  margin: 0;
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(to right, var(--azul-unam), #004080);
+  border-bottom: 3px solid var(--dorado);
+  border-radius: 6px 6px 0 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Cuerpo de la sección */
+.encuesta-page .section-body {
+  padding: 20px;
+}
+
+.encuesta-page h3.subtitulo {
+  grid-column: 1 / -1;
+  margin: 14px 0 8px;
+  font-size: 0.85rem;
+  color: var(--dorado);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: bold;
+  border-bottom: 1px dashed var(--dorado-claro);
+  padding-bottom: 4px;
+}
+
+.encuesta-page h3.subtitulo:first-child {
+  margin-top: 0;
+}
+
+.encuesta-page .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.encuesta-page .full {
+  grid-column: 1 / -1;
+}
+
+.encuesta-page label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.82rem;
+  font-weight: normal;
+  color: var(--texto-suave);
+}
+
+.encuesta-page input,
+.encuesta-page select {
+  padding: 8px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.encuesta-page input:focus,
+.encuesta-page select:focus {
+  outline: none;
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 2px rgba(164, 131, 41, 0.2);
+}
+
+/* Campo bloqueado/readonly (número de cuenta y calculados) */
+.encuesta-page input[readonly],
+.encuesta-page input:disabled {
+  background: #eef1f6;
+  color: var(--azul-unam);
+  font-weight: bold;
+  cursor: not-allowed;
+  border-color: #d0d7e2;
+}
+
+.encuesta-page .auto input {
+  background: #f8f9fc;
+  color: var(--azul-unam);
+  font-weight: bold;
+}
+
+.encuesta-page small {
+  font-weight: normal;
+  color: var(--dorado);
+  font-size: 0.75rem;
+}
+
+.encuesta-page fieldset {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.encuesta-page legend {
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: var(--texto-suave);
+  padding: 0 8px;
+}
+
+.encuesta-page .check {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  margin-right: 16px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.encuesta-page .check input {
+  width: auto;
+  accent-color: var(--dorado);
+}
+
+.encuesta-page .aviso {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 24px 0;
+  padding: 12px;
+  background: #fff8e8;
+  border-left: 4px solid var(--dorado);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.encuesta-page .aviso input {
+  width: auto;
+  margin-top: 3px;
+  accent-color: var(--dorado);
+}
+
+/* Botón de enviar: azul UNAM con hover dorado */
+.encuesta-page button[type="submit"] {
+  background: var(--azul-unam);
+  color: #fff;
+  border: 0;
+  padding: 11px 32px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  letter-spacing: 0.03em;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.encuesta-page button[type="submit"]:hover {
+  background: var(--dorado);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.encuesta-page button[type="submit"]:disabled {
+  background: #888;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Indicador de carga */
+.encuesta-page .loading-banner {
+  background: #fff8e8;
+  border-left: 4px solid var(--dorado);
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+.encuesta-page .error-banner {
+  background: #fdecea;
+  border-left: 4px solid #c0392b;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: #8b1a10;
+  font-size: 0.9rem;
+}

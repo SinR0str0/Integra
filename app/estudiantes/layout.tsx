@@ -124,14 +124,27 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           </a>
           
           <ul className={`over-link ${isBecasOpen ? 'show' : ''}`}>
-            {menuItems.map((item) => (
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+            const isSolicitudes = item.name === 'Solicitudes';
+            
+            // Construimos las clases dinámicamente
+            const linkClasses = `nav-link over ${isActive ? 'active' : ''} ${isSolicitudes ? 'solicitudes-highlight' : ''}`;
+
+            return (
               <li key={item.href}>
-                <Link className={`nav-link over ${pathname === item.href ? 'active' : ''}`} href={item.href} onClick={() => { if (window.innerWidth < 992) setSidebarOpen(false); }}>
+                <Link 
+                  className={linkClasses}
+                  href={item.href} 
+                  prefetch={false} // Evita errores 404 en consola al hacer hover
+                  onClick={() => { if (window.innerWidth < 992) setSidebarOpen(false); }}
+                >
                   {item.name}
                 </Link>
               </li>
-            ))}
-          </ul>
+            );
+          })}
+        </ul>
         </li>
 
         {/*  BOTONES DE ACCIÓN EN MÓVIL - Debajo de Becas */}

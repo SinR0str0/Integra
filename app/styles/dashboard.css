@@ -219,3 +219,8 @@ footer.sticky-footer {
   background-color: #A48329 !important;
   color: rgba(255, 255, 255, 0.5) !important; 
 }
+
+.nav-link.solicitudes-highlight {
+  color: #ffc107 !important;
+  font-weight: bold !important;
+}

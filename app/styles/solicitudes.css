@@ -1,0 +1,45 @@
+/* styles/solicitudes.css */
+.solicitudes-container {
+  margin: 2rem auto; /* Centrado horizontal y margen superior */
+  max-width: 50%;    /* Ancho máximo del 50% */
+}
+
+.solicitudes-form-group {
+  margin-bottom: 1rem;
+}
+
+.solicitudes-label {
+  display: block;
+  font-weight: normal; /* Sin negritas */
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.btn-unam {
+  background-color: #003366 !important; /* Azul UNAM */
+  color: white !important;
+  border: none;
+  font-size: 0.8rem; /* Pequeño */
+  padding: 0.4rem 1rem;
+  display: block;
+  margin: 1.5rem auto 0 auto; /* Centrado */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.btn-unam:hover {
+  background-color: #002244 !important;
+  color: white !important;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
